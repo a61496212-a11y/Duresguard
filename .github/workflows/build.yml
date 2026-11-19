@@ -17,7 +17,12 @@ jobs:
       - name: Apply theme fix
         run: |
           mkdir -p extracted/DuressGuard/app/src/main/res/values
-          cp extra-files/themes.xml extracted/DuressGuard/app/src/main/res/values/themes.xml
+          cat > extracted/DuressGuard/app/src/main/res/values/themes.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar" />
+          </resources>
+          EOF
           sed -i 's#android:theme="@android:style/Theme.DeviceDefault.Light"#android:theme="@style/AppTheme"#' extracted/DuressGuard/app/src/main/AndroidManifest.xml
 
       - name: Set up JDK 17
